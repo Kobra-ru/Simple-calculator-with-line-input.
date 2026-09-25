@@ -51,9 +51,6 @@ func main() {
 			}
 
 		}
-		var test float64
-		test = 153463425.5224424242
-		fmt.Printf("%0.4f\n", math.Round(test*10000)/10000)
 	}
 }
 func stringToAction(line string) ([]int, int) { // обрабатывает ошибки Cинтаксическая, Неподдерживаемый оператор или Неподдерживаемый символ,
