@@ -167,15 +167,17 @@ func stringToActionF(line string) ([]float64, int) { // обрабатывает
 			if sym == '+' || sym == '-' || sym == '*' || sym == '/' || sym == '(' || sym == ')' {
 				if temp != "" {
 					errorCode := 0
-					if count == 0 {
+
+					switch count {
+					case 0:
 						var tempI int64
 						tempI, errorCode = stringToInt(temp)
 						arr = append(arr, float64(tempI))
-					} else if count == 1 {
+					case 1:
 						var tempF float64
 						tempF, errorCode = stringToF(temp)
 						arr = append(arr, tempF)
-					} else {
+					default:
 						return []float64{}, 2
 					}
 					temp = ""
@@ -213,15 +215,16 @@ func stringToActionF(line string) ([]float64, int) { // обрабатывает
 		}
 		if temp != "" {
 			errorCode := 0
-			if count == 0 {
+			switch count {
+			case 0:
 				var tempI int64
 				tempI, errorCode = stringToInt(temp)
 				arr = append(arr, float64(tempI))
-			} else if count == 1 {
+			case 1:
 				var tempF float64
 				tempF, errorCode = stringToF(temp)
 				arr = append(arr, tempF)
-			} else {
+			default:
 				return []float64{}, 2
 			}
 			temp = ""
@@ -307,6 +310,7 @@ func actionCalcFloat(arr []float64) (float64, int) {
 }
 func actionCalcInt(arr []int64) (int64, int) {
 	// -1 = +, -2 = -, -3 = *, -4 = /, -5 = (, -6 = )
+	//fmt.Println("Тест массив:", arr) //test
 	errorCode := 0
 
 	arr, errorCode = recursionOfStaplesInt(arr)
@@ -565,7 +569,7 @@ func multiplicationOrDivisionInt(arr []int64) ([]int64, int) {
 	for i := 0; i < len(arr); i++ { // умножения деления
 		errorCode := 0
 		stop--
-		if i+2 < len(arr) && (arr[i] >= 0 || arr[i] <= -7) && (arr[i+1] == -3 || arr[i+1] == -4) && (arr[i+2] >= 0 || arr[i+2] <= -8) {
+		if i+2 < len(arr) && (arr[i] >= 0 || arr[i] <= -7) && (arr[i+1] == -3 || arr[i+1] == -4) && (arr[i+2] >= 0 || arr[i+2] <= -7) {
 			if len(newArr) > 0 && (newArr[len(newArr)-1] >= 0 || newArr[len(newArr)-1] <= -7) && stop == 1 {
 				newArr[len(newArr)-1], errorCode = calcOperInt(newArr[len(newArr)-1], arr[i+1], arr[i+2])
 				i++
@@ -592,7 +596,7 @@ func multiplicationOrDivisionF(arr []float64) ([]float64, int) {
 	for i := 0; i < len(arr); i++ { // умножения деления
 		errorCode := 0
 		stop--
-		if i+2 < len(arr) && (arr[i] >= 0 || arr[i] <= -7) && (arr[i+1] == -3 || arr[i+1] == -4) && (arr[i+2] >= 0 || arr[i+2] <= -8) {
+		if i+2 < len(arr) && (arr[i] >= 0 || arr[i] <= -7) && (arr[i+1] == -3 || arr[i+1] == -4) && (arr[i+2] >= 0 || arr[i+2] <= -7) {
 			if len(newArr) > 0 && (newArr[len(newArr)-1] >= 0 || newArr[len(newArr)-1] <= -7) && stop == 1 {
 				newArr[len(newArr)-1], errorCode = calcOperF(newArr[len(newArr)-1], int(arr[i+1]), arr[i+2])
 				i++
